@@ -29,7 +29,7 @@ git branch: 'main',
                stage('BuildImage') {
                     steps {
                         script {
-                            docker.build("bernardolobato/teste-ci")
+                            docker.build("bernardolobato/teste-ci:"+env.IMAGE_TAG)
                             sh 'docker rm teste-cicd --force'
                             sh 'docker run -d -p 8081:8081 --name teste-cicd bernardolobato/teste-ci:'+env.IMAGE_TAG
                         }

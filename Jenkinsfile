@@ -2,15 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage ('scm') {
-            steps {
-                git poll: true,
-                        url: 'https://github.com/bernardo-lobato-7comm/teste-cicd',
-                        branch: 'main'
-                sh "ls -lat"
-                sh "cat src/main/java/br/com/bernardolobato/teste/ci/testeci/HelloWorldController.java"
-            }
-        }
+
         stage('Build') {
             agent {
                 docker {
@@ -19,6 +11,11 @@ pipeline {
                 }
             }
             steps {
+                git poll: true,
+                        url: 'https://github.com/bernardo-lobato-7comm/teste-cicd',
+                        branch: 'main'
+                sh "ls -lat"
+                sh "cat src/main/java/br/com/bernardolobato/teste/ci/testeci/HelloWorldController.java"
                 sh 'mvn -B -DskipTests clean package'
                 sh 'mvn -B release:update-versions -DautoVersionSubmodules=true'
 

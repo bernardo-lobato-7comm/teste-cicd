@@ -10,6 +10,6 @@ public class HelloWorldController {
     @ResponseBody
     @GetMapping("/hello-world")
     public String helloWorld() {
-        return "Hello, World - 5";
+        return "Hello, World - " + System.getenv("BUILD_ID");
     }
 }

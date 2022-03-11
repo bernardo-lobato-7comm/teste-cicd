@@ -1,8 +1,6 @@
 pipeline {
     agent any
-    triggers {
-            pollSCM('* * * * *')
-    }
+
     stages {
 
         stage('Build') {
@@ -14,8 +12,7 @@ agent {
                     }
                 }
             steps {
-git branch: 'main',
-                    url: 'https://github.com/bernardo-lobato-7comm/teste-cicd'
+                scm checkout
                 sh "ls -lat"
                 sh 'mvn -B -DskipTests clean package'
                 sh 'mvn -B release:update-versions -DautoVersionSubmodules=true'

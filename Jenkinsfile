@@ -32,7 +32,7 @@ git branch: 'main',
                             sh "echo ${env.BUILD_ID}"
                             docker.build("teste-ci:${env.BUILD_ID}")
                             sh 'docker rm teste-cicd --force'
-                            sh 'docker run -d -p 8081:8081 --name teste-cicd bernardolobato/teste-ci:'+env.BUILD_ID
+                            sh 'docker run -d -p 8081:8081 --name teste-cicd teste-ci:'+env.BUILD_ID
                         }
                     }
                 }

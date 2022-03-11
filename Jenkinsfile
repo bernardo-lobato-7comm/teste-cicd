@@ -13,7 +13,8 @@ agent {
                 }
             steps {
                 git poll: true,
-                    url: 'https://github.com/bernardo-lobato-7comm/teste-cicd'
+                    url: 'https://github.com/bernardo-lobato-7comm/teste-cicd',
+                    branch: 'main'
                 sh "ls -lat"
                 sh 'mvn -B -DskipTests clean package'
                 sh 'mvn -B release:update-versions -DautoVersionSubmodules=true'

@@ -16,20 +16,13 @@ pipeline {
                         branch: 'main'
                 sh "ls -lat"
                 sh "cat src/main/java/br/com/bernardolobato/teste/ci/testeci/HelloWorldController.java"
-                sh 'mvn -B release:update-versions -DautoVersionSubmodules=true'
-                sh 'mvn -B -DskipTests clean package'
+                sh "echo ${env.BUILD_ID}"
+                sh 'docker rm teste-cicd --force'
+                sh "docker build  --build-arg BUILD_ID=${env.BUILD_ID} -t teste-cicd:${env.BUILD_ID} ."
+                sh "docker run -d -p 8081:8081 --name teste-cicd teste-cicd:"+env.BUILD_ID
             }
 
         }
-        stage('BuildImage') {
-            steps {
-                script {
-                    sh "echo ${env.BUILD_ID}"
-                    sh 'docker rm teste-cicd --force'
-                    sh "docker build --no-cache --build-arg BUILD_ID=${env.BUILD_ID} -t teste-cicd:${env.BUILD_ID} ."
-                    sh "docker run -d -p 8081:8081 --name teste-cicd teste-cicd:"+env.BUILD_ID
-                }
-            }
-        }
+
     }
 }

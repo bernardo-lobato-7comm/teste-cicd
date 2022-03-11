@@ -16,6 +16,7 @@ pipeline {
                         branch: 'main'
                 sh "ls -lat"
                 sh "cat src/main/java/br/com/bernardolobato/teste/ci/testeci/HelloWorldController.java"
+                sh 'mvn -B release:update-versions -DautoVersionSubmodules=true'
                 sh 'mvn -B -DskipTests clean package'
             }
 

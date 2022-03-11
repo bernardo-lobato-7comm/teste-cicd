@@ -4,12 +4,12 @@ pipeline {
     stages {
     stage ('scm') {
         steps {
-                        git poll: true,
-                            url: 'https://github.com/bernardo-lobato-7comm/teste-cicd',
-                            branch: 'main'
-                        sh "ls -lat"
+            git poll: true,
+                    url: 'https://github.com/bernardo-lobato-7comm/teste-cicd',
+                    branch: 'main'
+            sh "ls -lat"
         }
-
+    }
         stage('Build') {
 agent {
                     docker {

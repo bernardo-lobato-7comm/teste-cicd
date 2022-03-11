@@ -17,8 +17,6 @@ pipeline {
                 sh "ls -lat"
                 sh "cat src/main/java/br/com/bernardolobato/teste/ci/testeci/HelloWorldController.java"
                 sh 'mvn -B -DskipTests clean package'
-                sh 'mvn -B release:update-versions -DautoVersionSubmodules=true'
-
             }
 
         }
@@ -28,7 +26,7 @@ pipeline {
                     sh "echo ${env.BUILD_ID}"
                     docker.build("teste-cicd:${env.BUILD_ID}")
                     sh 'docker rm teste-cicd --force'
-                    sh 'docker run -d -p 8081:8081 --name teste-cicd teste-ci:'+env.BUILD_ID
+                    sh 'docker run -d -p 8081:8081 --name teste-cicd teste-cicd:'+env.BUILD_ID
                 }
             }
         }

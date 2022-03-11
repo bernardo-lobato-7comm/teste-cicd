@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+    stage ('scm') {
+        steps {
+                        git poll: true,
+                            url: 'https://github.com/bernardo-lobato-7comm/teste-cicd',
+                            branch: 'main'
+                        sh "ls -lat"
+        }
 
         stage('Build') {
 agent {
@@ -12,14 +19,9 @@ agent {
                     }
                 }
             steps {
-                git poll: true,
-                    url: 'https://github.com/bernardo-lobato-7comm/teste-cicd',
-                    branch: 'main'
-                sh "ls -lat"
                 sh 'mvn -B -DskipTests clean package'
                 sh 'mvn -B release:update-versions -DautoVersionSubmodules=true'
                 script {
-                env.IMAGE_TAG = '$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
                 }
 
             }

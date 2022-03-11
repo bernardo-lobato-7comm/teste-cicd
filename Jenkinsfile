@@ -24,9 +24,9 @@ pipeline {
             steps {
                 script {
                     sh "echo ${env.BUILD_ID}"
-                    docker.build("teste-cicd:${env.BUILD_ID}")
                     sh 'docker rm teste-cicd --force'
-                    sh "docker run -d -e BUILD_ID = ${env.BUILD_ID} -p 8081:8081 --name teste-cicd teste-cicd:"+env.BUILD_ID
+                    sh "docker build --no-cache --build-arg BUILD_ID=${env.BUILD_ID} -t teste-cicd:${env.BUILD_ID} ."
+                    sh "docker run -d -p 8081:8081 --name teste-cicd teste-cicd:"+env.BUILD_ID
                 }
             }
         }

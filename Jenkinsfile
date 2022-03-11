@@ -31,7 +31,7 @@ git branch: 'main',
                         script {
                             docker.build("bernardolobato/teste-ci")
                             sh 'docker rm teste-cicd --force'
-                            sh 'docker run -d -p 8081:8081 --name teste-cicd bernardolobato/teste-ci:latest'
+                            sh 'docker run -d -p 8081:8081 --name teste-cicd bernardolobato/teste-ci:'+env.IMAGE_TAG
                         }
                     }
                 }

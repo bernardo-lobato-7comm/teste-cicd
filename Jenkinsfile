@@ -30,7 +30,7 @@ pipeline {
                 sh "echo ${env.BUILD_ID}"
                 sh 'docker stop teste-cicd || true && docker rm teste-cicd || true'
                 sh "docker build  --build-arg BUILD_ID=${env.BUILD_ID} -t teste-cicd:${env.BUILD_ID} ."
-                sh "docker run -d -p 8081:8081 --name teste-cicd teste-cicd:" + env.BUILD_ID
+                sh "docker run -d -p 9091:9091 --name teste-cicd teste-cicd:" + env.BUILD_ID
             }
 
         }

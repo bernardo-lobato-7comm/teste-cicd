@@ -9,5 +9,5 @@ RUN mvn -f /home/app/pom.xml clean package -DskipTests
 
 FROM openjdk:11-jre-slim
 COPY --from=build /home/app/target/teste-ci*.jar /usr/local/lib/teste-ci.jar
-EXPOSE 8081
+EXPOSE 9091
 ENTRYPOINT ["java","-jar","/usr/local/lib/teste-ci.jar"]
